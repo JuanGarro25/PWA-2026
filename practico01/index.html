@@ -73,12 +73,47 @@
         <hr>
         <hr>
 
+        <section>
+            <br>
+            <h1>Paso #5 - Lista de Eventos</h1>
+            <hr>
+            <br>
+            <h3>Lista de Eventos:</h3>
+            <ul>
+                <li v-for="evento in listaeventos" :key="evento.id">
+                    Evento: {{ evento.nombre }} -
+                    Timestamp: {{ evento.timestamp }}
+                </li>
+            </ul>
+        </section>
+
+        <br>
+        <br>
+        <hr>
+        <hr>
+        <hr>
+
 
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <script>
+
+        let eventos = [];
+        let idEvento = 0;
+        let actualizandoListaEventos = false;
+
+        function guardarEvento(nombre) {
+
+            idEvento++;
+
+            eventos.push({
+                id: idEvento,
+                nombre: nombre,
+                timestamp: Date.now()
+            });
+        }
 
         const app = Vue.createApp({
 
@@ -91,17 +126,21 @@
                     edad: 30,
                     ciudad: "Tupungato",
 
-                    
+
                     //> PASO 3 
 
                     contador: 0,
-                    
+
 
                     //> PASO 4 
 
                     nuevaTarea: "",
                     tareas: [],
-                    
+
+
+                    //> PASO 5
+
+                    listaeventos: []
                 }
 
             },
@@ -134,6 +173,59 @@
                     return this.tareas.filter(tarea => !tarea.completada).length;
                 }
 
+            },
+            beforeCreate() {
+                guardarEvento("beforeCreate");
+            },
+
+            created() {
+                guardarEvento("created");
+            },
+
+            beforeMount() {
+                guardarEvento("beforeMount");
+            },
+
+            mounted() {
+                guardarEvento("mounted");
+                actualizandoListaEventos = true;
+                this.listaeventos = [...eventos];
+
+                this.$nextTick(() => {
+                    actualizandoListaEventos = false;
+                });
+
+            },
+
+            beforeUpdate() {
+
+                if (!actualizandoListaEventos) {
+                    guardarEvento("beforeUpdate");
+                }
+
+            },
+
+            updated() {
+
+                if (!actualizandoListaEventos) {
+                    guardarEvento("updated");
+                    actualizandoListaEventos = true;
+                    this.listaeventos = [...eventos];
+
+                    this.$nextTick(() => {
+                        actualizandoListaEventos = false;
+                    });
+
+                }
+
+            },
+
+            beforeUnmount() {
+                guardarEvento("beforeUnmount");
+            },
+
+            unmounted() {
+                guardarEvento("unmounted");
             }
 
         });
