@@ -96,7 +96,11 @@
 
     </div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <!-- Vue 3 -->
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
 
@@ -114,6 +118,22 @@
                 timestamp: Date.now()
             });
         }
+
+        
+        const api = axios.create({
+            baseURL: "https://jsonplaceholder.typicode.com"
+        });
+
+        async function obtenerPost(postId) {
+            const respuesta = await api.get("/posts/" + postId);
+            return respuesta.data;
+        }
+
+        async function obtenerComments(postId) {
+            const respuesta = await api.get("/posts/" + postId + "/comments");
+            return respuesta.data;
+        }
+
 
         const app = Vue.createApp({
 
