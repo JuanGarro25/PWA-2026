@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practico 01 - Vue.js</title>
+    
+</head>
+
+<body>
+
+    <div id="app">
+
+        <section>
+
+            <h1>Paso #2 - Información de Perfil Simple (Interpolación)</h1>
+            <hr>
+            <br>
+            <h3>Nombre: {{ nombre }}</h3>
+            <h3>Edad: {{ edad }}</h3>
+            <h3>Ciudad: {{ ciudad }}</h3>
+            <br>
+            <h3>Hola, mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{ ciudad }}.</h3>    
+
+        </section>
+        <br>
+        <hr>
+        <hr>
+        <hr>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+
+        const app = Vue.createApp({
+
+            data(){
+                return {
+
+                    //> PASO 2 
+
+                    nombre: "Ana García",
+                    edad: 30,
+                    ciudad: "Tupungato"
+                 
+                }
+                
+            }
+
+
+        });
+
+        app.mount('#app');
+
+    </script>
+
+</body>
+
+</html>
