@@ -30,6 +30,24 @@
         <hr>
         <hr>
 
+        <section>
+            <br>
+            <h1>Paso #3 - Contador Interactivo (Interpolación y Eventos)</h1>
+            <hr>
+            <br>
+            <h3>Contador: {{ contador }}</h3>
+            <br>
+            <button @click="contador++">+ Incrementar +</button>
+            <br>
+            <button @click="contador--">- Decrementar -</button>
+        </section>
+        <br>
+        <br>
+        <hr>
+        <hr>
+        <hr>
+
+
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -45,8 +63,13 @@
 
                     nombre: "Ana García",
                     edad: 30,
-                    ciudad: "Tupungato"
-                 
+                    ciudad: "Tupungato",
+                
+
+                    //> PASO 3 
+
+                    contador: 0
+
                 }
                 
             }
