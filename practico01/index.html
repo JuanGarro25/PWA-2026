@@ -93,13 +93,37 @@
         <hr>
         <hr>
 
+        <section>
+            <br>
+            <h1>Paso #7 - Uso de las Funciones</h1>
+            <hr>
+            <br>
+            <h3>Posts:</h3>
+            <ul>
+                <li v-for="post in posts" :key="post.id" @click="cargarComentarios(post.id)" style="cursor: pointer;">
+                    {{ post.id }} - {{ post.title }}
+                </li>
+            </ul>
+            <br>
+            <h3>Comentarios:</h3>
+            <ul>
+                <li v-for="comentario in comentarios" :key="comentario.id">
+                    {{ comentario.name }} - {{ comentario.body }}
+                </li>
+            </ul>
+        </section>
+
+        <br>
+        <br>
+        <hr>
+        <hr>
+        <hr>
+
 
     </div>
 
-        <!-- Vue 3 -->
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-        <!-- Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
@@ -119,7 +143,7 @@
             });
         }
 
-        
+
         const api = axios.create({
             baseURL: "https://jsonplaceholder.typicode.com"
         });
@@ -160,7 +184,13 @@
 
                     //> PASO 5
 
-                    listaeventos: []
+                    listaeventos: [],
+
+
+                    //> PASO 7
+
+                    posts: [],
+                    comentarios: []
                 }
 
             },
@@ -168,7 +198,6 @@
             methods: {
 
                 añadirTarea(){
-
                     if (this.nuevaTarea.trim() === "") {
                         return;
                     }
@@ -180,6 +209,10 @@
                     });
 
                     this.nuevaTarea = "";
+                },
+
+                async cargarComentarios(postId) {
+                    this.comentarios = await obtenerComments(postId);
                 }
             },
 
@@ -214,7 +247,17 @@
                 this.$nextTick(() => {
                     actualizandoListaEventos = false;
                 });
+                for (let i = 1; i <= 10; i++) {
 
+                    obtenerPost(i).then(post => {
+
+                        this.posts.push(post);
+
+                        this.posts.sort((a, b) => a.id - b.id);
+
+                    });
+
+                }
             },
 
             beforeUpdate() {
