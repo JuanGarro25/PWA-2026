@@ -2,11 +2,11 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practico 01 - Vue.js</title>
     
+
 </head>
 
 <body>
@@ -14,7 +14,6 @@
     <div id="app">
 
         <section>
-
             <h1>Paso #2 - Información de Perfil Simple (Interpolación)</h1>
             <hr>
             <br>
@@ -22,9 +21,9 @@
             <h3>Edad: {{ edad }}</h3>
             <h3>Ciudad: {{ ciudad }}</h3>
             <br>
-            <h3>Hola, mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{ ciudad }}.</h3>    
-
+            <h3>Hola, mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{ ciudad }}.</h3>  
         </section>
+
         <br>
         <hr>
         <hr>
@@ -41,6 +40,33 @@
             <br>
             <button @click="contador--">- Decrementar -</button>
         </section>
+
+        <br>
+        <br>
+        <hr>
+        <hr>
+        <hr>
+
+        <section>
+            <br>
+            <h1>Paso #4 - Lista de Tareas con Conteo y Estado (Propiedades Computadas, Interpolación, Eventos)</h1>
+            <hr>
+            <br>
+            <br>
+            <input type="text" v-model="nuevaTarea">
+            <button @click="añadirTarea">+ Añadir Tarea</button>
+            <br>
+            <h3>Total de Tareas: {{ totalTareas }}</h3>
+            <h3>Tareas Pendientes: {{ tareasPendientes }}</h3>
+            <br>
+            <ul>
+                <li v-for="tarea in tareas" :key="tarea.id">
+                    <input type="checkbox" v-model="tarea.completada">
+                    {{ tarea.texto }}
+                </li>
+            </ul>
+        </section>
+
         <br>
         <br>
         <hr>
@@ -64,16 +90,51 @@
                     nombre: "Ana García",
                     edad: 30,
                     ciudad: "Tupungato",
-                
 
+                    
                     //> PASO 3 
 
-                    contador: 0
+                    contador: 0,
+                    
 
+                    //> PASO 4 
+
+                    nuevaTarea: "",
+                    tareas: [],
+                    
                 }
-                
-            }
 
+            },
+
+            methods: {
+
+                añadirTarea(){
+
+                    if (this.nuevaTarea.trim() === "") {
+                        return;
+                    }
+
+                    this.tareas.push({
+                        id: Date.now(),
+                        texto: this.nuevaTarea,
+                        completada: false
+                    });
+
+                    this.nuevaTarea = "";
+                }
+            },
+
+            computed: {
+
+                totalTareas(){
+                    return this.tareas.length;
+                },
+
+                tareasPendientes(){
+                    return this.tareas.filter(tarea => !tarea.completada).length;
+                }
+
+            }
 
         });
 
