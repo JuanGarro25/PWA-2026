@@ -2,3 +2,6 @@
 postgres_data/
 __pycache__/
 *.pyc
+backend/db.sqlite3
+backend/__pycache__/
+postgres_data_respaldo/
